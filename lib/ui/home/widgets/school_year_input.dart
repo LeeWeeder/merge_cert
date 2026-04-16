@@ -7,29 +7,35 @@ class SchoolYearInput extends StatelessWidget {
     super.key,
     required this.state,
     required this.onSelectionChanged,
+    this.width,
   });
 
   final SchoolYearSelectionState state;
 
   final ValueChanged<SchoolYearRange> onSelectionChanged;
 
+  final double? width;
+
   @override
   Widget build(BuildContext context) {
-    return SegmentedButton<SchoolYearRange>(
-      segments: state.possibleSchoolYears
+    return DropdownMenu(
+      dropdownMenuEntries: state.possibleSchoolYears
           .map(
-            (schoolYearRange) => ButtonSegment(
+            (schoolYearRange) => DropdownMenuEntry(
               value: schoolYearRange,
-              label: Text(schoolYearRange.toString()),
+              label: schoolYearRange.toString(),
             ),
           )
           .toList(),
-      selected: <SchoolYearRange>{state.schoolYear},
-      onSelectionChanged: (selection) {
-        if (selection.isNotEmpty) {
-          onSelectionChanged(selection.first);
+      onSelected: (value) {
+        if (value != null) {
+          onSelectionChanged(value);
         }
       },
+      initialSelection: state.schoolYear,
+      selectOnly: true,
+      width: width,
+      label: Text("School year"),
     );
   }
 }

@@ -17,9 +17,17 @@ class InputSidebar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SchoolYearInput(
-          state: schoolYearSelectionState,
-          onSelectionChanged: onSchoolYearSelectionChanged,
+        Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SchoolYearInput(
+                state: schoolYearSelectionState,
+                onSelectionChanged: onSchoolYearSelectionChanged,
+                width: constraints.maxWidth,
+              );
+            },
+          ),
         ),
       ],
     );
